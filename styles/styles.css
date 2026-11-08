@@ -1,0 +1,55 @@
+/* =====================================
+   WMS INTELLIGENCE - ESTILOS GENERALES
+   ===================================== */
+
+
+
+/* ===== GOOGLE FONTS ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+/* 1. FONDO Y TEXTO GENERAL */
+
+body {
+    background-color: #071E36;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* 2. TÍTULO PRINCIPAL */
+
+.titulo-principal {
+    color: #26D9CC;
+}
+
+/* 3. MENÚ DE NAVEGACIÓN */
+
+.menu-principal a {
+    color: #7DB7E8;
+}
+
+
+/* ===== JERARQUÍA TIPOGRÁFICA ===== */
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
