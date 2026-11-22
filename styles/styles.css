@@ -33,6 +33,14 @@ body {
   min-height: 100vh;
 }
 
+/* Configuración general de imágenes */
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 /* 05. TITULOS Y PARRAFOS */
 h1 {
   font-size: clamp(1.5rem, calc(1rem + 2vw), 2.1rem);
@@ -141,8 +149,11 @@ p {
   background-color: var(--color-superficie);
 }
 
-.contenido-inicio figure img {
-  max-width: 100%;
+/* Imagen de Contacto: ancho completo, sin recorte. */
+.pagina-contacto .seccion-tecnologia img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* 09. TARJETAS Y SECCIONES DE SOLUCIONES */
@@ -216,10 +227,8 @@ p {
 }
 
 .seccion-soluciones img {
-  display: block;
   width: 100%;
-  height: 15rem;
-  object-fit: cover;
+  height: auto;
 }
 
 /* Listas de funcionalidades de los proyectos */
@@ -276,7 +285,116 @@ p {
   list-style: none;
 }
 
-/* 11. MEDIA QUERY */
+/* 11. GRID RESPONSIVE - PAGINAS SECUNDARIAS */
+
+/* Las páginas secundarias tienen sus propios mapas de áreas.
+   No utilizan la clase pagina-grid, reservada para Inicio y Proyectos. */
+.pagina-sobre-mi > h1,
+.pagina-servicios > h1,
+.pagina-contacto > h1 {
+  grid-area: titulo-principal;
+}
+
+.pagina-sobre-mi > .seccion-presentacion,
+.pagina-servicios > .seccion-presentacion,
+.pagina-contacto > .seccion-presentacion {
+  grid-area: presentacion;
+}
+
+/* El contenido de cada sección secundaria también utiliza Grid. */
+.contenido-inicio.pagina-sobre-mi .seccion-soluciones,
+.contenido-inicio.pagina-contacto .seccion-soluciones,
+.contenido-inicio.pagina-servicios .seccion-soluciones {
+  display: grid;
+}
+
+/* Servicios conserva el mapa general de tres bloques. */
+.contenido-inicio.pagina-servicios {
+  grid-template-areas:
+    "titulo-principal"
+    "presentacion"
+    "soluciones";
+}
+
+.pagina-servicios > .seccion-soluciones {
+  grid-area: soluciones;
+}
+
+/* Sobre el proyecto: una columna en mobile. */
+.contenido-inicio.pagina-sobre-mi {
+  grid-template-areas:
+    "titulo-principal"
+    "presentacion"
+    "mision"
+    "vision";
+}
+
+.pagina-sobre-mi > .seccion-soluciones {
+  grid-area: mision;
+}
+
+.pagina-sobre-mi > .seccion-vision {
+  grid-area: vision;
+}
+
+/* Contacto: una columna en mobile. */
+.contenido-inicio.pagina-contacto {
+  grid-template-areas:
+    "titulo-principal"
+    "presentacion"
+    "medios"
+    "tecnologia";
+}
+
+.pagina-contacto > .seccion-soluciones {
+  grid-area: medios;
+}
+
+.pagina-contacto > .seccion-tecnologia {
+  grid-area: tecnologia;
+}
+
+/* Las secciones con una sola tarjeta ocupan todo el ancho. */
+.contenido-inicio.pagina-sobre-mi .seccion-soluciones,
+.contenido-inicio.pagina-contacto .seccion-soluciones {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "contenido";
+}
+
+.pagina-sobre-mi .seccion-soluciones > article,
+.pagina-contacto .seccion-soluciones > article {
+  grid-area: contenido;
+}
+
+/* Servicios: nombres de area propios para los tres planes. */
+.contenido-inicio.pagina-servicios .seccion-soluciones {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "titulo"
+    "essential"
+    "advanced"
+    "professional";
+}
+
+/* Título de la grilla de Servicios */
+
+.pagina-servicios .seccion-soluciones > h2 {
+  grid-area: titulo;
+}
+
+.pagina-servicios .tarjeta-essential {
+  grid-area: essential;
+}
+
+.pagina-servicios .tarjeta-advanced {
+  grid-area: advanced;
+}
+
+.pagina-servicios .tarjeta-professional {
+  grid-area: professional;
+}
+
+/* 12. MEDIA QUERIES */
 
 /* MEDIA QUERY - TABLET */
 
@@ -288,6 +406,23 @@ p {
       "titulo titulo"
       "inventario preparacion"
       "despachos despachos";
+  }
+
+  /* Servicios: dos planes en fila y uno a lo ancho. */
+  .contenido-inicio.pagina-servicios .seccion-soluciones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "titulo titulo"
+      "essential advanced"
+      "professional professional";
+  }
+
+  /* Imágenes de las tarjetas que ocupan dos columnas */
+
+  .contenido-inicio.pagina-grid .tarjeta-despachos figure,
+  .contenido-inicio.pagina-servicios .tarjeta-professional figure {
+    width: calc((100% - 1.5rem) / 2);
+    align-self: center;
   }
 }
 
@@ -315,6 +450,13 @@ p {
     justify-content: flex-end;
   }
 
+  /* Recuperar el ancho completo de las imágenes */
+
+  .contenido-inicio.pagina-grid .tarjeta-despachos figure,
+  .contenido-inicio.pagina-servicios .tarjeta-professional figure {
+    width: 100%;
+  }
+
   /* Footer - Escritorio */
 
   .footer-principal {
@@ -336,5 +478,13 @@ p {
 
   .footer-principal ul {
     justify-content: flex-end;
+  }
+
+  /* Servicios: los tres planes en columnas iguales. */
+  .contenido-inicio.pagina-servicios .seccion-soluciones {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      "titulo titulo titulo"
+      "essential advanced professional";
   }
 }
